@@ -27,20 +27,20 @@ a.joblink:hover, a:focus {
         <%
         tabs.forEach(function(tab) {
             var classnm = tab.active ? ' class="active"' : '';
-            %><li<%- classnm %>><a href="#<%= tab.machineName %>" data-toggle="tab"><%= tab.title %></a></li>
+            %><li<%- classnm %>><a href='#<%- tab.machineName %>' data-toggle="tab"><%= tab.title %></a></li>
         <% }); %>
     </ul>
     
     <div id="outerTabContent" class="tab-content">
         
         <% tabs.forEach(function(tabOuter) { %>
-            <div class="tab-pane <% if (tabOuter.active) { %>active<% } %>" id="<%= tabOuter.machineName %>">
-                <ul id="<%= tabOuter.machineName %>Tabs" class="nav nav-tabs">
+            <div class="tab-pane <% if (tabOuter.active) { %>active<% } %>" id='<%- tabOuter.machineName %>'>
+                <ul id='<%- tabOuter.machineName %>Tabs' class="nav nav-tabs">
                     <%
                     tabOuter.tabs.forEach(function(tabInner) {
                         var href = tabOuter.machineName + tabInner.machineName;
                         var classnm = tabInner.active ? ' class="active"' : '';
-                        %><li<%- classnm %>><a href="#<%= href %>" data-toggle="tab"><%= tabInner.title %></a></li>
+                        %><li<%- classnm %>><a href='#<%- href %>' data-toggle="tab"><%= tabInner.title %></a></li>
                 <% }); %></ul>
                 <div id="<%= tabOuter.machineName %>TabContent" class="tab-content">
                     <%
@@ -48,9 +48,9 @@ a.joblink:hover, a:focus {
                         var classnm = "tab-pane";
                         if (tabInner.active) { classnm += " active"; }
                         var id = tabOuter.machineName + tabInner.machineName;
-                        %><div class="<%= classnm %>" id="<%= id %>">
+                        %><div class="<%= classnm %>" id='<%- id %>'>
                         <% tabInner.links.forEach(function(link) {
-                            %><a href="/a/jobs/find-jobs/q-<%= link.query %>"><%= link.title %></a>
+                            %><a href='/a/jobs/find-jobs/q-<%- link.query %>'><%= link.title %></a> |
                     <% }); %></div>
                     <% }); %>
                 </div>
