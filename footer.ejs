@@ -24,10 +24,11 @@ $(document).ready(function() {
         tabs.forEach(function(tabOuter) {
             tabOuter.tabs.forEach(function(tabInner) {
                 tabInner.links.forEach(function(link) {
+                    var qry = link.query.split('+').join('\\+');  //.replace('+', '\\+', 'g').replace('+', '\\+', 'g').replace('+', '\\+', 'g');
                     %>
-                    if (title.match(/<%= link.query %>/)) {
-                        $("#outernav a[href='#<%= tabOuter.machineName %>']").tab('show');
-                        $("#<%= tabOuter.machineName %> a[href='#<%= tabOuter.machineName %><%= tabInner.machineName %>']").tab('show');
+                    if (title.match(/<%- qry %>/)) {
+                        $("#outernav a[href='#<%- tabOuter.machineName %>']").tab('show');
+                        $("#<%- tabOuter.machineName %> a[href='#<%- tabOuter.machineName %><%- tabInner.machineName %>']").tab('show');
                     }
                     <%
                 });
@@ -40,6 +41,7 @@ $(document).ready(function() {
 </script>
 
 
+<% if (analytics.doit) { %>
 <script type="text/javascript">
   var _gaq = _gaq || [];
   _gaq.push(['_setAccount', '<%= analytics.account %>']);
@@ -51,7 +53,9 @@ $(document).ready(function() {
     var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
   })();
 </script>
+<% } %>
 
+<% if (sharethis.doit) { %>
 <span class="st_twitter" ></span>
 <span class="st_facebook"></span>
 <span class="st_google plus" ></span>
@@ -94,4 +98,4 @@ var options={
     ]}};
 var st_hover_widget = new sharethis.widgets.hoverbuttons(options);
 </script>
-
+<% } %>
