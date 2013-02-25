@@ -1,0 +1,61 @@
+
+<link href="http://audio.davidherron.com/bootstrap/css/bootstrap.min.css" rel="stylesheet" media="screen">
+<link href="http://audio.davidherron.com/bootstrap/css/bootstrap-responsive.css" rel="stylesheet">
+
+
+<style>
+a.joblink:link, a:visited {
+    color: blue;
+    text-decoration: underline;
+}
+a.joblink:hover, a:focus {
+    color:#FFF;
+    background:#4c4c4c;
+}
+#navigation-area {
+  border: 1px solid #ddd;
+}
+#navigation-area ul.nav-tabs, #navigation-area ul.nav-tabs li {
+  list-style: none;
+}
+</style>
+
+
+<div id="navigation-area">
+    
+    <ul id="outernav" class="nav nav-tabs">
+        <%
+        tabs.forEach(function(tab) {
+            var classnm = tab.active ? ' class="active"' : '';
+            %><li<%- classnm %>><a href="#<%= tab.machineName %>" data-toggle="tab"><%= tab.title %></a></li>
+        <% }); %>
+    </ul>
+    
+    <div id="outerTabContent" class="tab-content">
+        
+        <% tabs.forEach(function(tabOuter) { %>
+            <div class="tab-pane <% if (tabOuter.active) { %>active<% } %>" id="<%= tabOuter.machineName %>">
+                <ul id="<%= tabOuter.machineName %>Tabs" class="nav nav-tabs">
+                    <%
+                    tabOuter.tabs.forEach(function(tabInner) {
+                        var href = tabOuter.machineName + tabInner.machineName;
+                        var classnm = tabInner.active ? ' class="active"' : '';
+                        %><li<%- classnm %>><a href="#<%= href %>" data-toggle="tab"><%= tabInner.title %></a></li>
+                <% }); %></ul>
+                <div id="<%= tabOuter.machineName %>TabContent" class="tab-content">
+                    <%
+                    tabOuter.tabs.forEach(function(tabInner) {
+                        var classnm = "tab-pane";
+                        if (tabInner.active) { classnm += " active"; }
+                        var id = tabOuter.machineName + tabInner.machineName;
+                        %><div class="<%= classnm %>" id="<%= id %>">
+                        <% tabInner.links.forEach(function(link) {
+                            %><a href="/a/jobs/find-jobs/q-<%= link.query %>"><%= link.title %></a>
+                    <% }); %></div>
+                    <% }); %>
+                </div>
+            </div>
+        <% }); %>
+    </div>
+    
+</div>

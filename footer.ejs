@@ -1,0 +1,97 @@
+
+
+<script src="http://code.jquery.com/jquery.js"></script>
+<script src="http://audio.davidherron.com/bootstrap/js/bootstrap.min.js"></script>
+
+<script>
+$(document).ready(function() {
+    $('#outernav a, #categ1Tabs a, #categ2Tabs a, #categ3Tabs a').click(function (e) {
+      e.preventDefault();
+      $(this).tab('show');
+    });
+    $("a#rss_link").appendTo("div.side");
+    $("div#c_post-job-button-wrapper").appendTo("div.main");
+    $('#outernav a:first').tab('show');
+    $('#categ1Tabs a:first').tab('show');
+    
+    
+    var re = /\/q-(.*$)/;
+    var found = location.pathname.match(re);
+    if (found) {
+        var chunk = found[1];
+        var title = chunk.split('/')[0];
+        <%
+        tabs.forEach(function(tabOuter) {
+            tabOuter.tabs.forEach(function(tabInner) {
+                tabInner.links.forEach(function(link) {
+                    %>
+                    if (title.match(/<%= link.query %>/)) {
+                        $("#outernav a[href='#<%= tabOuter.machineName %>']").tab('show');
+                        $("#<%= tabOuter.machineName %> a[href='#<%= tabOuter.machineName %><%= tabInner.machineName %>']").tab('show');
+                    }
+                    <%
+                });
+            });
+        });
+        %>
+    }
+});
+
+</script>
+
+
+<script type="text/javascript">
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', '<%= analytics.account %>']);
+  _gaq.push(['_setDomainName', '<%= analytics.domain %>']);
+  _gaq.push(['_trackPageview']);
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+</script>
+
+<span class="st_twitter" ></span>
+<span class="st_facebook"></span>
+<span class="st_google plus" ></span>
+<span class="st_linkedin" ></span>
+<span class="st_digg"></span>
+<span class="st_stumbleupon" ></span>
+<span class="st_sharethis" ></span>
+<span class="st_myspace"></span>
+
+<script type="text/javascript" src="http://w.sharethis.com/button/buttons.js"></script>
+<script type="text/javascript">
+stLight.options({
+publisher:'12345'
+});
+</script>
+
+<script type="text/javascript">var switchTo5x=true;</script>
+<script type="text/javascript" src="http://w.sharethis.com/button/buttons.js"></script>
+<script type="text/javascript" src="http://s.sharethis.com/loader.js"></script>
+
+<script type="text/javascript">stLight.options({publisher: "<%= sharethis.publisher %>"});</script>
+<script>
+var options={
+    "publisher": "<%= sharethis.publisher %>",
+    "position": "<%= sharethis.position %>",
+    "ad": { "visible": false, "openDelay": 5, "closeDelay": 0},
+    "chicklets": {
+        "items": [
+                  "googleplus",
+                  "blogger",
+                  "linkedin",
+                  "facebook",
+                  "twitter",
+                  "tumblr",
+                  "care2",
+                  "stumbleupon",
+                  "pinterest",
+                  "email",
+                  "sharethis"
+    ]}};
+var st_hover_widget = new sharethis.widgets.hoverbuttons(options);
+</script>
+
