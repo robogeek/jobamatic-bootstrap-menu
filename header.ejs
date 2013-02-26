@@ -35,6 +35,7 @@ a.joblink:hover, a:focus {
         
         <% tabs.forEach(function(tabOuter) { %>
             <div class="tab-pane <% if (tabOuter.active) { %>active<% } %>" id='<%- tabOuter.machineName %>'>
+                <% if (typeof tabOuter.tabs !== "undefined") { %>
                 <ul id='<%- tabOuter.machineName %>Tabs' class="nav nav-tabs">
                     <%
                     tabOuter.tabs.forEach(function(tabInner) {
@@ -44,6 +45,7 @@ a.joblink:hover, a:focus {
                 <% }); %></ul>
                 <div id="<%= tabOuter.machineName %>TabContent" class="tab-content">
                     <%
+                    if (typeof tabOuter.tabs !== "undefined")
                     tabOuter.tabs.forEach(function(tabInner) {
                         var classnm = "tab-pane";
                         if (tabInner.active) { classnm += " active"; }
@@ -54,6 +56,16 @@ a.joblink:hover, a:focus {
                     <% }); %></div>
                     <% }); %>
                 </div>
+                <% } %>
+
+                <%
+                if (typeof tabOuter.links !== "undefined") {
+                    tabOuter.links.forEach(function(link) {
+                        %><a href='/a/jobs/find-jobs/q-<%- link.query %>'><%= link.title %></a> |
+                    <% });
+                }
+                %>
+                
             </div>
         <% }); %>
     </div>
