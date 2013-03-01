@@ -1,5 +1,4 @@
 
-
 <script src="http://code.jquery.com/jquery.js"></script>
 <script src="http://audio.davidherron.com/bootstrap/js/bootstrap.min.js"></script>
 
@@ -26,22 +25,18 @@ $(document).ready(function() {
             tabOuter.tabs.forEach(function(tabInner) {
                 tabInner.links.forEach(function(link) {
                     var qry = link.query.split('+').join('\\+');  //.replace('+', '\\+', 'g').replace('+', '\\+', 'g').replace('+', '\\+', 'g');
-                    %>
-                    if (title.match(/<%- qry %>/)) {
-                        $("#outernav a[href='#<%- tabOuter.machineName %>']").tab('show');
-                        $("#<%- tabOuter.machineName %> a[href='#<%- tabOuter.machineName %><%- tabInner.machineName %>']").tab('show');
-                    }
-                    <%
+%>if (title.match(/<%- qry %>/)) {
+    $("#outernav a[href='#<%- tabOuter.machineName %>']").tab('show');
+    $("#<%- tabOuter.machineName %> a[href='#<%- tabOuter.machineName %><%- tabInner.machineName %>']").tab('show');
+}<%
                 });
             });
             if (typeof tabOuter.links !== "undefined") {
                 tabOuter.links.forEach(function(link) {
                     var qry = link.query.split('+').join('\\+');
-                    %>
-                    if (title.match(/<%- qry %>/)) {
-                        $("#outernav a[href='#<%- tabOuter.machineName %>']").tab('show');
-                    }
-                    <%
+%>if (title.match(/<%- qry %>/)) {
+    $("#outernav a[href='#<%- tabOuter.machineName %>']").tab('show');
+}<%
                 });
             }
         });
@@ -95,17 +90,8 @@ var options={
     "ad": { "visible": false, "openDelay": 5, "closeDelay": 0},
     "chicklets": {
         "items": [
-                  "googleplus",
-                  "blogger",
-                  "linkedin",
-                  "facebook",
-                  "twitter",
-                  "tumblr",
-                  "care2",
-                  "stumbleupon",
-                  "pinterest",
-                  "email",
-                  "sharethis"
+   "googleplus",  "blogger", "linkedin",  "facebook", "twitter",
+   "tumblr",      "care2",   "stumbleupon", "pinterest",  "email", "sharethis"
     ]}};
 var st_hover_widget = new sharethis.widgets.hoverbuttons(options);
 </script>
